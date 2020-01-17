@@ -1,0 +1,2 @@
+application_id,access_key,reply_url,token_endpoint,base_url
+deaf6a97-33ba-46ca-a462-2608c401b5e3,bd3982f0-cf31-4455-a4b4-2a8b377d4f46,*,https://api.fusionfabric.cloud/login/v1/sandbox/oidc/token,https://api.fusionfabric.cloud/retail-us/account/v1/consumers/
