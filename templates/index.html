@@ -24,75 +24,68 @@
       <strong>Account Number</strong>
       <input type="text" name="account_number" placeholder="Account Number" required="required" /><br><br>
     -->
-      <strong>Home ownership</strong><br>
-        <select name="home_ownership">
-            <option value="" disabled selected hidden>Select Home ownership category</option>
-            <option value="1">Mortgage</option>
-            <option value="2">Rent</option>
-            <option value="3">Owner</option>
-            <option value="4">Other</option>
+      <strong>Gender</strong><br>
+        <select name="Gender">
+            <option value="" disabled selected hidden>Select Gender</option>
+            <option value="0">Female</option>
+            <option value="1">Male</option>
         </select><br><br>
 
-        <strong>Purpose</strong><br>
-        <select name="purpose">
-            <option value="" disabled selected hidden>Select Purpose category</option>
-            <option value="1">Debt Consolidation</option>
-            <option value="2">Credit Card</option>
-            <option value="3">Home Improvement</option>
-            <option value="4">Other</option>
-            <option value="5">Major Purchase</option>
-            <option value="6">Small Business</option>
-            <option value="7">Car Loan</option>
-            <option value="8">Medical</option>
-            <option value="9">Moving</option>
-            <option value="10">Vacation</option>
-            <option value="11">House</option>
-            <option value="12">Wedding</option>
-            <option value="13">Renewable Energy</option>
-            <option value="14">Educational</option>
+        <strong>Marital Status</strong><br>
+        <select name="Married">
+            <option value="" disabled selected hidden>Select Marital status category</option>
+            <option value="0">Not Married</option>
+            <option value="1">Married</option>
         </select><br><br>
 
-        <strong>Grade</strong><br>
-        <select name="Grade">
-            <option value="" disabled selected hidden>Select Grade category</option>
-            <option value="1">A</option>
-            <option value="2">B</option>
-            <option value="3">C</option>
-            <option value="4">D</option>
-            <option value="5">E</option>
-            <option value="6">F</option>
-            <option value="7">G</option>
+        <strong>Number of Dependents</strong><br>
+        <select name="Dependents">
+            <option value="" disabled selected hidden>Select the number of Dependents</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3 or more</option>
         </select><br><br>
 
-        <strong>Empoyment Length</strong><br>
-        <select name="empolyment_length">
-            <option value="" disabled selected hidden>Select Employment Length category</option>
-            <option value="0">0 years</option>
-            <option value="1">1 year</option>
-            <option value="2">2 years</option>
-            <option value="3">3 years</option>
-            <option value="4">4 years</option>
-            <option value="5">5 years</option>
-            <option value="6">6 years</option>
-            <option value="7">7 years</option>
-            <option value="8">8 years</option>
-            <option value="9">9 years</option>
-            <option value="10">Over 10 years</option>
+        <strong>Education</strong><br>
+        <select name="Education">
+            <option value="" disabled selected hidden>Select Education category</option>
+            <option value="0">Not a Graduate</option>
+            <option value="1">Graduate</option>
         </select><br><br>
 
-        <strong>Annual Income</strong><br>
-        <input type="text" name="annual_income" placeholder="Annual Income" required="required" /><br><br>
-
-        <strong>Loan Term</strong><br>
-        <select name="term">
-            <option value="" disabled selected hidden>Select Loan Term category</option>
-            <option value="0">36 Months</option>
-            <option value="1">60 Months</option>
+        <strong>Self Employed</strong><br>
+        <select name="Self_Employed">
+            <option value="" disabled selected hidden>Select Employment category</option>
+            <option value="0">No</option>
+            <option value="1">Yes</option>
         </select><br><br>
+
+        <strong>Credit History</strong><br>
+        <select name="Credit_History">
+            <option value="" disabled selected hidden>Select Credit History category</option>
+            <option value="0">Not Favorable</option>
+            <option value="1">Favorable</option>
+        </select><br><br>
+
+        <strong>Property Area</strong><br>
+        <select name="Property_Area">
+            <option value="" disabled selected hidden>Select Education category</option>
+            <option value="0">Semi Urban</option>
+            <option value="1">Urban</option>
+            <option value="1">Rural</option>
+        </select><br><br>
+
+        <strong>Applicant's Income</strong><br>
+        <input type="text" name="ApplicantIncome" placeholder="Applicant's Income" required="required" /><br><br>
+
+        <strong>Co-Applicant's Income</strong><br>
+        <input type="text" name="CoapplicantIncome" placeholder="Co-Applicant's Income" required="required" /><br><br>
+
         <strong>Loan Amount</strong><br>
-        <input type="text" name="loan" placeholder="Loan Amount" required="required" /><br><br>
-        <strong>Interest Rate</strong><br>
-        <input type="text" name="rate" placeholder="Interest Rate" required="required" /><br><br>
+        <input type="text" name="LoanAmount" placeholder="Loan Amount" required="required" /><br><br>
+        <strong>Loan Term</strong><br>
+        <input type="text" name="rate" placeholder="Loan Term" required="required" /><br><br>
 
 
         <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
