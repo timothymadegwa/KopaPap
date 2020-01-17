@@ -22,8 +22,9 @@ def predict():
     features = [features]
     final_features = features_prep(features)
     prediction = model.predict_proba(final_features)
+    
 
-    output = round((prediction[0][0])*100,2)
+    output = round((prediction[0][1])*100,2)
 
     return render_template('index.html', prediction_text='Probability of repayment is: {} %'.format(output))
 
