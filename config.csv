@@ -1,2 +1,3 @@
 application_id,access_key,reply_url,token_endpoint,base_url
-deaf6a97-33ba-46ca-a462-2608c401b5e3,bd3982f0-cf31-4455-a4b4-2a8b377d4f46,*,https://api.fusionfabric.cloud/login/v1/sandbox/oidc/token,https://api.fusionfabric.cloud/retail-us/account/v1/consumers/
+bb473ed6-c10f-4765-a97b-735b659dea59,4ad025f3-5ff2-4919-8286-8bb4f80cec0e,https://kopapap-api.herokuapp.com/,https://api.fusionfabric.cloud/login/v1/sandbox/oidc/token,https://api.fusionfabric.cloud/retail-us/account/v1/consumers/
+,,,,
