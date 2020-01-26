@@ -59,14 +59,14 @@ if __name__ == "__main__":
     print(response.status_code)
     method = 'GET'
     endpoint = '831'
-    endpoint2 = '/accounts'
+    endpoint2 = '/accounts/10020/balances'
     payload = ''
     additional_headers = {}
     params = {}
     config_file = 'config.csv'
     tcm = Querycust_api(config_file, token, method, endpoint,endpoint2, payload, additional_headers, params)
     response2 = tcm.connect_endpoint()
-    print("Response: ",response2.text)
+    print("Response: ",response2.text.split(','))
   
 
 
