@@ -68,7 +68,16 @@ if __name__ == "__main__":
     response2 = tcm.connect_endpoint()
     response2 = response2.json()
     print("Response: ",response2)
-  
 
-
-
+'''
+    a = authenticate('config2.csv')
+    response,token = a.get_token()
+    print(response.status_code)
+    endpoint = 'accounts'
+    endpoint2 = '/01010OA00P202'
+    config_file = 'config2.csv'
+    tcm = Querycust_api(config_file, token, method, endpoint,endpoint2, payload, additional_headers, params)
+    response3 = tcm.connect_endpoint()
+    response3 = response3.text
+    print("Response: ",response3)
+'''
