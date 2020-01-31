@@ -58,8 +58,8 @@ if __name__ == "__main__":
     response,token = a.get_token()
     print(response.status_code)
     method = 'GET'
-    endpoint = '831'
-    endpoint2 = '/accounts/10020/balances'
+    endpoint = 'personal-customers'
+    endpoint2 = '/FFDC01'
     payload = ''
     additional_headers = {}
     params = {}

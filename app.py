@@ -4,6 +4,7 @@ import pickle
 
 app = Flask(__name__)
 model = pickle.load(open('model.pkl', 'rb'))
+
 #to be defined!
 def features_prep(array):
     return array
@@ -18,7 +19,6 @@ def predict():
     For rendering results on HTML GUI
     '''
     features = np.array([float(x) for x in request.form.values()])
-    #features = features[:,1:]
     features = [features]
     final_features = features_prep(features)
     prediction = model.predict_proba(final_features)
