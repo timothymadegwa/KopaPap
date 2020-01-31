@@ -66,7 +66,8 @@ if __name__ == "__main__":
     config_file = 'config.csv'
     tcm = Querycust_api(config_file, token, method, endpoint,endpoint2, payload, additional_headers, params)
     response2 = tcm.connect_endpoint()
-    print("Response: ",response2.text.split(','))
+    response2 = response2.json()
+    print("Response: ",response2)
   
 
 
