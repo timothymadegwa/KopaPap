@@ -46,7 +46,7 @@ def predict():
 
     output = round((prediction[0][1])*100,2)
 
-    return render_template('report.html', prediction_text='Client {} Probability of repayment for {} {} {} is: {} %'.format(customer_id, title, f_name, l_name,output))
+    return render_template('report.html', prediction_text='Client {} : Probability of repayment for {} {} {} is: {} %'.format(customer_id, title, f_name, l_name,output))
 
 if __name__ == "__main__":
     app.run(debug=True)
