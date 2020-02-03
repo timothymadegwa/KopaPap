@@ -38,6 +38,7 @@ class Querycust_api:
         self.endpoint_type = method
         self.endpoint = endpoint 
         self.endpoint2 = endpoint2
+        self.payload = payload
         self.additional_headers = additional_headers
         self.params = params
     
@@ -49,7 +50,7 @@ class Querycust_api:
             }
         for key in self.additional_headers.keys():
             headers[key] = self.additional_headers[key]
-        stringified_payload = json.dumps(payload)
+        stringified_payload = json.dumps(self.payload)
         response = requests.request(self.endpoint_type, self.url, params=self.params, data=stringified_payload,headers=headers)
         return response
 
