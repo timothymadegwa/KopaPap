@@ -22,7 +22,11 @@ def predict():
     customer_id = features[0:1].values[0,0]
     print(customer_id)
     features = features.T
-    features = features.values[:,1:].astype(float)
+    features.columns = ['Customer_Id', 'Married', 'Dependents', 'Education', 'Self_Employed', 'Credit_History', 
+                'Property_Area','ApplicantIncome', 'CoapplicantIncome', 'LoanAmount',
+                'Loan_Amount_Term']
+    print(features)
+    
 
     a = authenticate('config.csv')
     response,token = a.get_token()
@@ -40,6 +44,11 @@ def predict():
     title = response2['title']
     f_name = response2['firstName']
     l_name = response2['lastName']
+    gender = response2['gender']
+    features['Gender'] = gender
+    features.Gender = features.Gender.map({'FEMALE':0, 'MALE':1})
+
+    features = features.values[:,1:].astype(float)
 
     prediction = model.predict_proba(features)
     
