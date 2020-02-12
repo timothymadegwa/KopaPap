@@ -1,13 +1,15 @@
 import requests
 import json
+import pandas as pd
 
 #performs authentication
-class authenticate: 
+class AuthenticateSearch: 
 
-    def __init__(self,): 
-        self.client_id = 'bb473ed6-c10f-4765-a97b-735b659dea59'
-        self.client_secret = '4ad025f3-5ff2-4919-8286-8bb4f80cec0e'
-        self.token_endpoint = 'https://api.fusionfabric.cloud/login/v1/sandbox/oidc/token'
+    def __init__(self,config_file):
+        self.df = pd.read_csv(config_file)
+        self.client_id = self.df['application_id'].values[0]
+        self.client_secret = self.df['access_key'].values[0]
+        self.token_endpoint = self.df['token_endpoint'].values[0]
         
     def get_token(self): 
         headers = {'Content-Type':'application/x-www-form-urlencoded'}
@@ -23,7 +25,7 @@ class authenticate:
             token = response['access_token']
         return  token
 
-class Query_api:
+class QuerySearchApi:
     def __init__(self, token,payload): 
         self.base_url = 'https://api.fusionfabric.cloud/retail-banking/customers/v1/personal-customers/search?limit=1&offset=1'
         self.token = token 
@@ -43,8 +45,8 @@ class Query_api:
         return cc
 
 if __name__ == "__main__":
-    a = authenticate()
+    a = AuthenticateSearch('config.csv')
     token = a.get_token()
     data ="{\n  \"firstName\": \"EMANUEL\",\n  \"lastName\" : \"SHOWN\",\n  \"phoneNumber\": \"0044 01753 573244\",\n  \"emailAddress\": \"OfficeAdmin@OfficeAddress.com\",\n  \"identificationNumber\": \"WWW12\",\n  \"dateOfBirth\": \"1979-05-01\"\n}"
-    tcm = Query_api(token,data)
-    print(tcm.connect_endpoint())
+    tcm = QuerySearchApi(token,data)
+    results = tcm.connect_endpoint()

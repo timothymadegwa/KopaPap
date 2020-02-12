@@ -3,6 +3,7 @@ import pandas as pd
 from flask import Flask, request, jsonify, render_template
 import pickle
 from custdetails import authenticate, Querycust_api
+from searchcust import AuthenticateSearch, QuerySearchApi
 
 app = Flask(__name__)
 model = pickle.load(open('model.pkl', 'rb'))
@@ -11,6 +12,17 @@ model = pickle.load(open('model.pkl', 'rb'))
 @app.route('/')
 def home():
     return render_template('index.html')
+
+@app.route('/search')
+def search():
+
+
+    a = AuthenticateSearch('config.csv')
+    token = a.get_token()
+    data ="{\n  \"firstName\": \"EMANUEL\",\n  \"lastName\" : \"SHOWN\",\n  \"phoneNumber\": \"0044 01753 573244\",\n  \"emailAddress\": \"OfficeAdmin@OfficeAddress.com\",\n  \"identificationNumber\": \"WWW12\",\n  \"dateOfBirth\": \"1979-05-01\"\n}"
+    tcm = QuerySearchApi(token,data)
+    results = tcm.connect_endpoint()
+    return render_template('report.html')
 
 @app.route('/predict',methods=['POST'])
 def predict():
