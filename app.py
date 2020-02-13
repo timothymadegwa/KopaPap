@@ -15,9 +15,9 @@ def home():
 
 @app.route('/search',methods=['POST'])
 def search():
-    data = [*request.form.values()]
+    '''data = [*request.form.values()]
     print(data)
-    first, last, tel, email, id_num, dob = data
+    first, last, tel, email, id_num, dob = data'''
 
     a = AuthenticateSearch('config.csv')
     token = a.get_token()
