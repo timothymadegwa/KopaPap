@@ -40,7 +40,6 @@ class QuerySearchApi:
             }  
         response = requests.post(self.url,data=self.payload,headers=headers)
         print(response.status_code)
-        print(response.json())
         cc = response.json()
         return cc
 

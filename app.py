@@ -13,16 +13,20 @@ model = pickle.load(open('model.pkl', 'rb'))
 def home():
     return render_template('index.html')
 
-@app.route('/search')
+@app.route('/search',methods=['POST'])
 def search():
-
+    data = [*request.form.values()]
+    print(data)
+    first, last, tel, email, id_num, dob = data
 
     a = AuthenticateSearch('config.csv')
     token = a.get_token()
     data ="{\n  \"firstName\": \"EMANUEL\",\n  \"lastName\" : \"SHOWN\",\n  \"phoneNumber\": \"0044 01753 573244\",\n  \"emailAddress\": \"OfficeAdmin@OfficeAddress.com\",\n  \"identificationNumber\": \"WWW12\",\n  \"dateOfBirth\": \"1979-05-01\"\n}"
     tcm = QuerySearchApi(token,data)
     results = tcm.connect_endpoint()
-    return render_template('report.html')
+    results = results['items'][0]
+    print(results['customerId'])
+    return render_template('search.html', text = 'The customer id is {} '.format(results['customerId']))
 
 @app.route('/predict',methods=['POST'])
 def predict():
@@ -67,7 +71,7 @@ def predict():
 
     output = round((prediction[0][1])*100,2)
 
-    return render_template('report.html', prediction_text='Client {} : Probability of repayment for {} {} {} is: {} %'.format(customer_id, title, f_name, l_name,output))
+    return render_template('report.html', text='Client {} : Probability of repayment for {} {} {} is: {} %'.format(customer_id, title, f_name, l_name,output))
 
 if __name__ == "__main__":
     app.run(debug=True)
