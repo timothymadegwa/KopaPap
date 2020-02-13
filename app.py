@@ -34,13 +34,11 @@ def predict():
     For rendering results on HTML GUI
     '''
     
-    features = pd.DataFrame([*request.form.values()])
-    customer_id = features[0:1].values[0,0]
+    features = [*request.form.values()]
+    customer_id = features[0]
     print(customer_id)
-    features = features.T
-    features.columns = ['Customer_Id', 'Married', 'Dependents', 'Education', 'Self_Employed', 'Credit_History', 
-                'Property_Area','ApplicantIncome', 'CoapplicantIncome', 'LoanAmount',
-                'Loan_Amount_Term']
+    features = features[1:]
+    features = [*map(float,features)]
     print(features)
     
 
@@ -61,10 +59,14 @@ def predict():
     f_name = response2['firstName']
     l_name = response2['lastName']
     gender = response2['gender']
-    features['Gender'] = gender
-    features.Gender = features.Gender.map({'FEMALE':0, 'MALE':1})
+    if gender == 'MALE':
+        features.append(1)
+    else:
+        features.append(0)
+    
 
-    features = features.values[:,1:].astype(float)
+    features = np.array([features])
+    print(features)
 
     prediction = model.predict_proba(features)
     
