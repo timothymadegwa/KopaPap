@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 from flask import Flask, request, jsonify, render_template
+import json
 import pickle
 from custdetails import authenticate, Querycust_api
 from searchcust import AuthenticateSearch, QuerySearchApi
@@ -21,7 +22,8 @@ def search():
 
     a = AuthenticateSearch('config.csv')
     token = a.get_token()
-    data ="{\n  \"firstName\": \"EMANUEL\",\n  \"lastName\" : \"SHOWN\",\n  \"phoneNumber\": \"0044 01753 573244\",\n  \"emailAddress\": \"OfficeAdmin@OfficeAddress.com\",\n  \"identificationNumber\": \"WWW12\",\n  \"dateOfBirth\": \"1979-05-01\"\n}"
+    data ={"firstName": first,"lastName" : last,"phoneNumber": tel,"emailAddress": email,"identificationNumber":id_num,"dateOfBirth": dob}
+    data  = json.dumps(data)
     tcm = QuerySearchApi(token,data)
     results = tcm.connect_endpoint()
     results = results['items'][0]
