@@ -14,21 +14,25 @@ model = pickle.load(open('model.pkl', 'rb'))
 def home():
     return render_template('index.html')
 
-@app.route('/search',methods=['POST'])
+@app.route('/search',methods=['POST','GET'])
 def search():
-    data = [*request.form.values()]
-    print(data)
-    first, last, tel, email, id_num, dob = data
+    try:
+        data = []
+        data = [*request.form.values()]
+        print(data)
+        first, last, tel, email, id_num, dob = data
 
-    a = AuthenticateSearch('config.csv')
-    token = a.get_token()
-    data ={"firstName": first,"lastName" : last,"phoneNumber": tel,"emailAddress": email,"identificationNumber":id_num,"dateOfBirth": dob}
-    data  = json.dumps(data)
-    tcm = QuerySearchApi(token,data)
-    results = tcm.connect_endpoint()
-    results = results['items'][0]
-    print(results['customerId'])
-    return render_template('search.html', text = 'The customer id is {} '.format(results['customerId']))
+        a = AuthenticateSearch('config.csv')
+        token = a.get_token()
+        data ={"firstName": first,"lastName" : last,"phoneNumber": tel,"emailAddress": email,"identificationNumber":id_num,"dateOfBirth": dob}
+        data  = json.dumps(data)
+        tcm = QuerySearchApi(token,data)
+        results = tcm.connect_endpoint()
+        results = results['items'][0]
+        cust_id = results['customerId']
+        return render_template('search.html', text = 'The customer id is {} '.format(cust_id))
+    except ValueError:
+        return render_template('search.html')
 
 @app.route('/predict',methods=['POST'])
 def predict():
