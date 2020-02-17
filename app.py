@@ -39,49 +39,46 @@ def predict():
     '''
     For rendering results on HTML GUI
     '''
-    try:
-        features = [*request.form.values()]
-        customer_id = features[0]
-        print(customer_id)
-        features = features[1:]
-        features = [*map(float,features)]
-        print(features)
+    features = [*request.form.values()]
+    customer_id = features[0]
+    print(customer_id)
+    features = features[1:]
+    features = [*map(float,features)]
+    print(features)
+    
+
+    a = authenticate('config.csv')
+    response,token = a.get_token()
+    print(response.status_code)
+    method = 'GET'
+    endpoint = 'personal-customers'
+    endpoint2 = '/'+customer_id
+    payload = ''
+    additional_headers = {}
+    params = {}
+    config_file = 'config.csv'
+    tcm = Querycust_api(config_file, token, method, endpoint,endpoint2, payload, additional_headers, params)
+    response2 = tcm.connect_endpoint()
+    response2 = response2.json()
+    title = response2['title']
+    f_name = response2['firstName']
+    l_name = response2['lastName']
+    gender = response2['gender']
+    if gender == 'MALE':
+        features.append(1)
+    else:
+        features.append(0)
         
 
-        a = authenticate('config.csv')
-        response,token = a.get_token()
-        print(response.status_code)
-        method = 'GET'
-        endpoint = 'personal-customers'
-        endpoint2 = '/'+customer_id
-        payload = ''
-        additional_headers = {}
-        params = {}
-        config_file = 'config.csv'
-        tcm = Querycust_api(config_file, token, method, endpoint,endpoint2, payload, additional_headers, params)
-        response2 = tcm.connect_endpoint()
-        response2 = response2.json()
-        title = response2['title']
-        f_name = response2['firstName']
-        l_name = response2['lastName']
-        gender = response2['gender']
-        if gender == 'MALE':
-            features.append(1)
-        else:
-            features.append(0)
+    features = np.array([features])
+    print(features)
+    prediction = model.predict_proba(features)
         
 
-        features = np.array([features])
-        print(features)
+    output = round((prediction[0][1])*100,2)
 
-        prediction = model.predict_proba(features)
-        
-
-        output = round((prediction[0][1])*100,2)
-
-        return render_template('report.html', text='Client {} : Probability of repayment for {} {} {} is: {} %'.format(customer_id, title, f_name, l_name,output))
-    except ValueError:
-        return render_template('index.html')
+    return render_template('report.html', text='Client {} : Probability of repayment for {} {} {} is: {} %'.format(customer_id, title, f_name, l_name,output))
+    
 
 if __name__ == "__main__":
     app.run(debug=True)
