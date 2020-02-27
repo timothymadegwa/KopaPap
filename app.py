@@ -28,9 +28,12 @@ def search():
         data  = json.dumps(data)
         tcm = QuerySearchApi(token,data)
         results = tcm.connect_endpoint()
-        results = results['items'][0]
-        cust_id = results['customerId']
-        return render_template('search.html', text = 'The customer id is {} '.format(cust_id))
+        try:
+            results = results['items'][0]
+            cust_id = results['customerId']
+            return render_template('search.html', text = 'The customer id is {} '.format(cust_id))
+        except TypeError:
+            return render_template('search.html', text = 'Invalid customer credentials')
     except ValueError:
         return render_template('search.html')
 

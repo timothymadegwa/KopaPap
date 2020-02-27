@@ -46,6 +46,7 @@ class QuerySearchApi:
 if __name__ == "__main__":
     a = AuthenticateSearch('config.csv')
     token = a.get_token()
-    data ="{\n  \"firstName\": \"EMANUEL\",\n  \"lastName\" : \"SHOWN\",\n  \"phoneNumber\": \"0044 01753 573244\",\n  \"emailAddress\": \"OfficeAdmin@OfficeAddress.com\",\n  \"identificationNumber\": \"WWW12\",\n  \"dateOfBirth\": \"1979-05-01\"\n}"
+    data ="{\n  \"firstName\": \"EMANUEL0\",\n  \"lastName\" : \"SHOWN\",\n  \"phoneNumber\": \"0044 01753 573244\",\n  \"emailAddress\": \"OfficeAdmin@OfficeAddress.com\",\n  \"identificationNumber\": \"WWW12\",\n  \"dateOfBirth\": \"1979-05-01\"\n}"
     tcm = QuerySearchApi(token,data)
     results = tcm.connect_endpoint()
+    print(results)
