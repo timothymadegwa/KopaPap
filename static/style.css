@@ -9,6 +9,7 @@
     .body{
       background-image: url('../static/background3.jpg');
       height: 100%;
+      margin: 20px;
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;}
@@ -31,3 +32,27 @@ button {
       width: 100px;
       font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
+li a:hover {
+      background-color: green;}
+ul.topnav {
+      list-style-type: none;
+      margin: 0px;
+      padding: 20px;
+      overflow: hidden;
+      background-color: #333;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      position: fixed; 
+      top: 0;
+      width: 100%;}
+    
+    ul.topnav li {float: left;}
+    
+    ul.topnav li a {
+      display: block;
+      color: lightgray;
+      text-align: center;
+      padding: 5px 20px;
+      text-decoration: none;}
+      @media screen and (max-width: 600px) { 
+            ul.topnav li {float: none;}
+          }
