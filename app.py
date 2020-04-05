@@ -1,18 +1,81 @@
 import numpy as np
 import pandas as pd
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, session, logging, url_for, redirect
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import scoped_session, sessionmaker
+from passlib.hash import sha256_crypt
+
 import json
 import pickle
 from custdetails import authenticate, Querycust_api
 from searchcust import AuthenticateSearch, QuerySearchApi
 
 app = Flask(__name__)
+
+ENV = 'dev'
+
+if ENV == 'dev':
+    app.debug = True
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://timothy:Kibukamusoke1!@localhost/Kopapap'
+else:
+    app.debug = False
+    app.config['SQLALCHEMY_DATABASE_URI'] = ''
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
+
 model = pickle.load(open('model.pkl', 'rb'))
 
 
 @app.route('/')
 def home():
     return render_template('index.html')
+
+@app.route('/register', methods=['POST','GET'])
+def register():
+    if request.method == 'POST':
+        fname = request.form.get('fname')
+        lname = request.form.get('lmane')
+        email = request.form.get('email')
+        password = request.form.get('password')
+        confirmed = request.form.get('confirm')
+        if password == confirmed:
+            secure_password = sha256_crypt(str(password))
+            if db.session.query(Register).filter(Register.email == email).count() == 0:
+                data = Register(fname,lname,email,secure_password)
+                db.session.add(data)
+                db.session.commit()
+                return render_template('login.html')
+               
+            return render_template('register.html', text = 'The email is already associated with another account')
+            
+        else:
+            return render_template('register.html', text = 'The passwords do not match')
+
+@app.route('/login', methods=['POST','GET'])
+def login():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+
+        email_data = db.execute("SELECT email FROM users WHERE email=:email",{'email':email}).fetchone()
+        password_data = db.execute("SELECT password FROM users WHERE email:=email", {'email': email}).fetchone()
+
+        if email_data is None:
+            return render_template('login.html', text = 'No account associated with {}, Kindly register'.format(email))
+        else:
+            if sha256_crypt.verify(password,password_data):
+                session['log'] = True
+                return render_template('index.html')
+            else:
+                return render_template('login.html')
+
+@app.logout('/logout')
+def logout():
+    session.clear()
+    return redirect('login.html')
+
 
 @app.route('/search',methods=['POST','GET'])
 def search():
