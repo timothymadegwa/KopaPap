@@ -4,6 +4,7 @@ from flask import Flask, request, jsonify, render_template, session, logging, ur
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import scoped_session, sessionmaker
 from passlib.hash import sha256_crypt
+from db import Register,db
 
 import json
 import pickle
@@ -59,19 +60,19 @@ def login():
         email = request.form.get('email')
         password = request.form.get('password')
 
-        email_data = db.execute("SELECT email FROM users WHERE email=:email",{'email':email}).fetchone()
-        password_data = db.execute("SELECT password FROM users WHERE email:=email", {'email': email}).fetchone()
+        #email_data = db.execute("SELECT email FROM users WHERE email=:email",{'email':email}).fetchone()
+        #password_data = db.execute("SELECT password FROM users WHERE email:=email", {'email': email}).fetchone()
 
-        if email_data is None:
-            return render_template('login.html', text = 'No account associated with {}, Kindly register'.format(email))
-        else:
-            if sha256_crypt.verify(password,password_data):
-                session['log'] = True
-                return render_template('index.html')
-            else:
-                return render_template('login.html')
+        #if email_data is None:
+         #   return render_template('login.html', text = 'No account associated with {}, Kindly register'.format(email))
+        #else:
+         #   if sha256_crypt.verify(password,password_data):
+          #      session['log'] = True
+           #     return render_template('index.html')
+            #else:
+             #   return render_template('login.html')
 
-@app.logout('/logout')
+@app.route('/logout')
 def logout():
     session.clear()
     return redirect('login.html')

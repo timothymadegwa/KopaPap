@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from passlib.hash import sha256_crypt
+from flask import Flask
 
 import json
 
