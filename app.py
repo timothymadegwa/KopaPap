@@ -67,10 +67,13 @@ def predict():
     tcm = Querycust_api(config_file, token, method, endpoint,endpoint2, payload, additional_headers, params)
     response2 = tcm.connect_endpoint()
     response2 = response2.json()
-    title = response2['title']
-    f_name = response2['firstName']
-    l_name = response2['lastName']
-    gender = response2['gender']
+    try:
+        title = response2['title']
+        f_name = response2['firstName']
+        l_name = response2['lastName']
+        gender = response2['gender']
+    except KeyError:
+        return render_template('index.html', text = 'Client {} does not exist'.format(customer_id))
     if gender == 'MALE':
         features.append(1)
     else:
