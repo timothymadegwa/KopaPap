@@ -45,8 +45,12 @@ def predict():
     features = [*request.form.values()]
     customer_id = features[0]
     print(customer_id)
+    amt = features[9]
     features = features[1:]
-    features = [*map(float,features)]
+    try:
+        features = [*map(float,features)]
+    except ValueError:
+        return render_template('index.html', text ="kindly enter a integer values in the relevant fields")
     print(features)
     
 
@@ -80,7 +84,7 @@ def predict():
 
     output = round((prediction[0][1])*100,2)
 
-    return render_template('report.html', text='Client {} : Probability of repayment for {} {} {} is: {} %'.format(customer_id, title, f_name, l_name,output))
+    return render_template('report.html', text='Client {} : Probability of repayment for {} {} {} on a loan of USD {} is: {} %'.format(customer_id, title, f_name, l_name, amt, output))
     
 
 if __name__ == "__main__":

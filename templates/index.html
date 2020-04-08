@@ -19,6 +19,11 @@
   <div class="image">
       <object data='../static/logo4.png' width="100%" height="10%"></object><br><br>
     </div>
+    <div>
+      <p style="color:red;">
+        {{ text }}
+      </p>
+    </div>
    <form action = "{{ url_for('search') }}">
     No Customer ID? <br><button type="submit" class="btn btn-primary btn-block btn-large">Search</button><br><br>
   </form>
