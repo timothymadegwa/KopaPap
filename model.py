@@ -27,6 +27,7 @@ data.Property_Area = data.Property_Area.map(prop_area_mapper)
 data.Loan_Status = data.Loan_Status.map(loan_mapper)
 
 data.Dependents = data.Dependents.astype(int)
+data['income_to_loan'] = data['ApplicantIncome'] / data['LoanAmount']
 
 data.drop('Loan_ID', axis=1, inplace=True)
 #data = pd.get_dummies(data, drop_first=True)
@@ -36,9 +37,9 @@ features = data.drop('Loan_Status',axis=1)
 
 features = data[['Married', 'Dependents', 'Education', 'Self_Employed', 'Credit_History', 
                 'Property_Area','ApplicantIncome', 'CoapplicantIncome', 'LoanAmount',
-                'Loan_Amount_Term','Gender']]
+                'Loan_Amount_Term', 'income_to_loan', 'Gender']]
 
-lr = LogisticRegression(C= 2, solver = 'lbfgs', warm_start = True)
+lr = LogisticRegression(C= 0.1, solver = 'liblinear', warm_start = True)
 lr.fit(features, target)
 
 pickle.dump(lr, open('model.pkl','wb'))
