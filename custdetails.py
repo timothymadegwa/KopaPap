@@ -1,8 +1,7 @@
-#API Handling Libraries -- requests, re, json
 import requests
 import json
-#pandas
 import pandas as pd
+
 #performs authentication
 class authenticate: 
     '''

@@ -8,7 +8,7 @@ from searchcust import AuthenticateSearch, QuerySearchApi
 
 app = Flask(__name__)
 model = pickle.load(open('model.pkl', 'rb'))
-
+kes_to_usd = 100
 
 @app.route('/')
 def home():
@@ -81,13 +81,17 @@ def predict():
         
 
     features = np.array([features])
+    features[0][6] = (features[0][6]*12)/kes_to_usd
+    features[0][7] = (features[0][7]*12)/kes_to_usd
+    features[0][8] = features[0][8]/kes_to_usd
     print(features)
+
     prediction = model.predict_proba(features)
         
 
     output = round((prediction[0][1])*100,2)
 
-    return render_template('report.html', text='Client {} : Probability of repayment for {} {} {} on a loan of USD {} is: {} %'.format(customer_id, title, f_name, l_name, amt, output))
+    return render_template('report.html', text='Client {} : Probability of repayment for {} {} {} on a loan of KES {} is: {} %'.format(customer_id, title, f_name, l_name, amt, output))
     
 
 if __name__ == "__main__":
