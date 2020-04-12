@@ -51,6 +51,7 @@ def predict():
         features = [*map(float,features)]
     except ValueError:
         return render_template('index.html', text ="kindly enter a integer values in the relevant fields")
+    features.append((features[6]*12)/features[8])
     print(features)
     
 
