@@ -9,9 +9,10 @@ from searchcust import AuthenticateSearch, QuerySearchApi
 app = Flask(__name__)
 model = pickle.load(open('model.pkl', 'rb'))
 kes_to_usd = 100
+active = 1
 
 @app.route('/')
-def home():
+def predict_home():
     return render_template('index.html')
 
 @app.route('/search',methods=['POST','GET'])

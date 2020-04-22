@@ -1,88 +1,99 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<body>
+
  <div class="body"> 
- <div class="login">
-	<h1></h1>
+ 
+  <h1></h1>
+  <div class='login'>
   <div class="image">
-      <object data='../static/logo4.png' width="100%" height="10%"></object><br><br>
+      <object data='../static/logo4.png' width="100%" height="100%"></object><br><br>
     </div>
+    <form action = "{{ url_for('search') }}">
+      No Customer ID? <br><button type="submit" class="btn btn-secondary btn-block btn-large">Search</button><br><br>
+    </form>
+  
     <div>
       <p style="color:red;">
         {{ text }}
       </p>
     </div>
-   <form action = "{{ url_for('search') }}">
-    No Customer ID? <br><button type="submit" class="btn btn-primary btn-block btn-large">Search</button><br><br>
-  </form>
-
-    <form action = "{{ url_for('predict')}}" method = "post">
-      <!--
-      <strong>Account Number</strong>
-      <input type="text" name="account_number" placeholder="Account Number" required="required" /><br><br>
-    -->
-      <strong>Cusomer ID</strong><br>
-      <input type="text" name="customer_id" placeholder="Customer ID" required="required" /> <br><em>(use PTY0003)</em><br><br>
-
-        <strong>Marital Status</strong><br>
-        <select name="Married" required = 'required'>
-            <option value="" disabled selected hidden>Select Marital status category</option>
-            <option value="0">Not Married</option>
-            <option value="1">Married</option>
-        </select><br><br>
-
-        <strong>Number of Dependents</strong><br>
-        <select name="Dependents" required = 'required'>
-            <option value="" disabled selected hidden>Select the number of Dependents</option>
+    <form action = "{{ url_for('predict') }}" method="post">
+      <div class="form-group">
+        <label for="customer_id">Customer ID</label>
+        <input type="text" class="form-control" name="customer_id" placeholder="Customer ID" required=''>
+        <em>(use PTY0003)</em>
+      </div>
+      <div class="form-group">
+        <label for="married">Marital Status</label>
+        <select class='form-control'name="married" required = 'required'>
+          <option value="" disabled selected hidden>Select Marital status category</option>
+          <option value="0">Not Married</option>
+          <option value="1">Married</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="dependents">Number of Dependents</label>
+        <select class='form-control'name="dependents" required = 'required'>
+          <option value="" disabled selected hidden>Select the number of Dependents</option>
             <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3 or more</option>
-        </select><br><br>
-
-        <strong>Education</strong><br>
-        <select name="Education" required = 'required'>
-            <option value="" disabled selected hidden>Select Education category</option>
-            <option value="0">Not a Graduate</option>
-            <option value="1">Graduate</option>
-        </select><br><br>
-
-        <strong>Self Employed</strong><br>
-        <select name="Self_Employed" required = 'required'>
-            <option value="" disabled selected hidden>Select Employment category</option>
-            <option value="0">No</option>
-            <option value="1">Yes</option>
-        </select><br><br>
-
-        <strong>Credit History</strong><br>
-        <select name="Credit_History" required = 'required'>
-            <option value="" disabled selected hidden>Select Credit History category</option>
-            <option value="0">Not Favorable</option>
-            <option value="1">Favorable</option>
-        </select><br><br>
-
-        <strong>Location of Colateral</strong><br>
-        <select name="Property_Area" required = 'required'>
-            <option value="" disabled selected hidden>Select Education category</option>
-            <option value="0">Semi Urban</option>
-            <option value="1">Urban</option>
-            <option value="2">Rural</option>
-        </select><br><br>
-
-        <strong>Applicant's Net Monthly Income</strong><br>
-        <input type="text" name="ApplicantIncome" placeholder="Applicant's Income" required="required" /><br><br>
-
-        <strong>Co-Applicant's Net Monthly Income</strong><br>
-        <input type="text" name="CoapplicantIncome" placeholder="Co-Applicant's Income" required="required" /><br><br>
-
-        <strong>Loan Amount</strong><br>
-        <input type="text" name="LoanAmount" placeholder="Loan Amount" required="required" /><br><br>
-        <strong>Loan Term in days</strong><br>
-        <input type="text" name="rate" placeholder="Loan Term" required="required" /><br><br>
-
-
-        <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="education">Education</label>
+        <select class='form-control'name="education" required = 'required'>
+          <option value="" disabled selected hidden>Select Education category</option>
+          <option value="0">Not a Graduate</option>
+          <option value="1">Graduate</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="self_employed">Self Employed</label>
+        <select class='form-control'name="self_employed" required = 'required'>
+          <option value="" disabled selected hidden>Select Employment category</option>
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="credit_history">Credit History</label>
+        <select class='form-control'name="credit_history" required = 'required'>
+          <option value="" disabled selected hidden>Select Credit History category</option>
+          <option value="0">Not Favorable</option>
+          <option value="1">Favorable</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="property_area">Location of Colateral</label>
+        <select class='form-control'name="property_area" required = 'required'>
+          <option value="" disabled selected hidden>Select Education category</option>
+          <option value="0">Semi Urban</option>
+          <option value="1">Urban</option>
+          <option value="2">Rural</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="ApplicantIncome">Applicant's Net Monthly Income</label>
+        <input type="text" class="form-control" name="ApplicantIncome" placeholder="Applicant's Income" required=''>
+      </div>
+      <div class="form-group">
+        <label for="CoapplicantIncome">Co-Applicant's Net Monthly Income</label>
+        <input type="text" class="form-control" name="CoapplicantIncome" placeholder="Co-Applicant's Income" required=''>
+      </div>
+      <div class="form-group">
+        <label for="LoanAmount">Loan Amount</label>
+        <input type="text" class="form-control" name="LoanAmount" placeholder="Loan Amount" required=''>
+      </div>
+      <div class="form-group">
+        <label for="term">Loan Term in days</label>
+        <input type="text" class="form-control" name="term" placeholder="Loan Term" required=''>
+      </div><br>
+      <button type="submit" class="btn btn-secondary btn-block btn-large">Predict</button>
+      
+   
     </form>
 
    <br>
@@ -91,6 +102,6 @@
  </div>
  </div>
 
-</body>
+
 
 {% endblock %}
