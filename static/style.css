@@ -1,10 +1,11 @@
 .login{
-      padding: 0px;
+      padding-left: 10px;
+      padding-right: 10px;
       background-color: rgba(0,0,0,0.7);
       color: white;
       text-align: center;
-      width: 50%;
-      margin-left:25%}
+      width: 70%;
+      margin-left:15%}
 .body{
       background-image: url('../static/background3.jpg');
       background-position: center;

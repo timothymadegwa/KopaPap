@@ -32,7 +32,7 @@ def search():
         try:
             results = results['items'][0]
             cust_id = results['customerId']
-            return render_template('search.html', text = 'The customer id is {} '.format(cust_id))
+            return render_template('searchreport.html', text = 'The customer id is {} '.format(cust_id))
         except TypeError:
             return render_template('search.html', text = 'Invalid customer credentials')
     except ValueError:
