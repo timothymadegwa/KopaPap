@@ -9,6 +9,11 @@
   <div class="image">
       <object data='../static/logo4.png' width="100%" height="10%"></object><br><br>
     </div>
+    {% if error %}
+    <div class="panel panel-danger">
+      <div class="panel-heading">{{ warning_text }}</div>
+    </div>
+    {% endif %}
     <form action="{{ url_for('search')}}"method="post">
       <div class="form-group">
         <label for="firstName">First Name</label>
@@ -35,7 +40,7 @@
         <input type="text" class="form-control" name="dateOfBirth" placeholder="YYYY-MM-DD" required=''>
       </div>
       <br>
-        <button type="submit" class="btn btn-primary btn-block btn-large">Search</button>
+        <button type="submit" class="btn btn-success btn-block btn-large">Search</button>
     </form>
 
    <br>
@@ -45,7 +50,7 @@
    <br>
    <br>
    <form action = "{{ url_for('predict_home') }}">
-    Next client <br><button type="submit" class="btn btn-primary btn-block btn-large">Home</button><br><br>
+    Next client <br><button type="submit" class="btn btn-success btn-block btn-large">Home</button><br><br>
  </div>
  </div>
 </div>

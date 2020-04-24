@@ -33,8 +33,8 @@ def search():
             results = results['items'][0]
             cust_id = results['customerId']
             return render_template('searchreport.html', text = 'The customer id is {} '.format(cust_id))
-        except TypeError:
-            return render_template('search.html', text = 'Invalid customer credentials')
+        except (TypeError,KeyError):
+            return render_template('search.html', warning_text = 'Invalid customer credentials', error=1)
     except ValueError:
         return render_template('search.html')
 
@@ -51,7 +51,7 @@ def predict():
     try:
         features = [*map(float,features)]
     except ValueError:
-        return render_template('index.html', text ="kindly enter a integer values in the relevant fields")
+        return render_template('index.html', error=1, warning_text ="kindly enter a integer values in the relevant fields")
     features.append((features[6]*12)/features[8])
     print(features)
     
@@ -75,7 +75,7 @@ def predict():
         l_name = response2['lastName']
         gender = response2['gender']
     except KeyError:
-        return render_template('index.html', text = 'Client {} does not exist'.format(customer_id))
+        return render_template('index.html', warning_text = 'Client {} does not exist'.format(customer_id), error=1)
     if gender == 'MALE':
         features.append(1)
     else:
