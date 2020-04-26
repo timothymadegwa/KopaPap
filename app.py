@@ -22,7 +22,8 @@ def search():
         data = [*request.form.values()]
         print(data)
         first, last, tel, email, id_num, dob = data
-
+        first = first.upper()
+        last = last.upper()
         a = AuthenticateSearch('config.csv')
         token = a.get_token()
         data ={"firstName": first,"lastName" : last,"phoneNumber": tel,"emailAddress": email,"identificationNumber":id_num,"dateOfBirth": dob}
