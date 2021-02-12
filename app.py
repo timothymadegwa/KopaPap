@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 from flask import Flask, request, jsonify, render_template
 import json
+import os
 import pickle
 from custdetails import authenticate, Querycust_api
 from searchcust import AuthenticateSearch, QuerySearchApi
@@ -9,7 +10,7 @@ from searchcust import AuthenticateSearch, QuerySearchApi
 app = Flask(__name__)
 model = pickle.load(open('model.pkl', 'rb'))
 kes_to_usd = 100
-active = 1
+DEBUG = False
 
 @app.route('/')
 def predict_home():
@@ -20,11 +21,13 @@ def search():
     try:
         data = []
         data = [*request.form.values()]
-        print(data)
         first, last, tel, email, id_num, dob = data
         first = first.upper()
         last = last.upper()
-        a = AuthenticateSearch('config.csv')
+        if DEBUG:
+            a = AuthenticateSearch('config.csv')
+        else:
+            a = AuthenticateSearch()
         token = a.get_token()
         data ={"firstName": first,"lastName" : last,"phoneNumber": tel,"emailAddress": email,"identificationNumber":id_num,"dateOfBirth": dob}
         data  = json.dumps(data)
@@ -46,7 +49,6 @@ def predict():
     '''
     features = [*request.form.values()]
     customer_id = features[0]
-    print(customer_id)
     amt = features[9]
     features = features[1:]
     try:
@@ -54,10 +56,11 @@ def predict():
     except ValueError:
         return render_template('index.html', error=1, warning_text ="kindly enter a integer values in the relevant fields")
     features.append((features[6]*12)/features[8])
-    print(features)
     
-
-    a = authenticate('config.csv')
+    if DEBUG:
+        a = authenticate('config.csv')
+    else:
+        a = authenticate()
     response,token = a.get_token()
     print(response.status_code)
     method = 'GET'
@@ -67,7 +70,10 @@ def predict():
     additional_headers = {}
     params = {}
     config_file = 'config.csv'
-    tcm = Querycust_api(config_file, token, method, endpoint,endpoint2, payload, additional_headers, params)
+    if DEBUG:
+        tcm = Querycust_api(config_file, token, method, endpoint,endpoint2, payload, additional_headers, params)
+    else:
+        tcm = Querycust_api(token, method, endpoint,endpoint2, payload, additional_headers, params)
     response2 = tcm.connect_endpoint()
     response2 = response2.json()
     try:

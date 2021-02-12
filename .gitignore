@@ -5,3 +5,4 @@ Data
 __pycache__
 key.txt
 *docx
+*.csv

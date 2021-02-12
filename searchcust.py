@@ -1,16 +1,23 @@
 import requests
 import json
+import os
 import pandas as pd
 
+DEBUG = False
 #performs authentication
 class AuthenticateSearch: 
+    if DEBUG:
+        def __init__(self,config_file):
+            self.df = pd.read_csv(config_file)
+            self.client_id = self.df['application_id'].values[0]
+            self.client_secret = self.df['access_key'].values[0]
+            self.token_endpoint = self.df['token_endpoint'].values[0]
+    else:
+        def __init__(self):
+            self.client_id = os.environ['APPLICATION_ID']
+            self.client_secret = os.environ['ACCESS_KEY']
+            self.token_endpoint = os.environ['TOKEN_ENDPOINT']
 
-    def __init__(self,config_file):
-        self.df = pd.read_csv(config_file)
-        self.client_id = self.df['application_id'].values[0]
-        self.client_secret = self.df['access_key'].values[0]
-        self.token_endpoint = self.df['token_endpoint'].values[0]
-        
     def get_token(self): 
         headers = {'Content-Type':'application/x-www-form-urlencoded'}
         data = {
