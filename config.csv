@@ -1,2 +1,0 @@
-application_id,access_key,reply_url,token_endpoint,base_url
-f4cb7b9b-78c6-4b85-a824-4584d3706cd4,a90c7dbd-dcb4-4b5f-a061-7b834a042e36,https://kopapap-api.herokuapp.com/,https://api.fusionfabric.cloud/login/v1/sandbox/oidc/token,https://api.fusionfabric.cloud/retail-banking/customers/v1/
