@@ -9,9 +9,7 @@
   <div class="image">
       <object data='../static/logo4.png' width="100%" height="100%"></object><br><br>
     </div>
-    <form action = "{{ url_for('search') }}">
-      No Customer ID? <br><button type="submit" class="btn btn-success btn-block btn-large">Search</button><br><br>
-    </form>
+    
   {% if error %}
     <div class="panel panel-danger">
       <div class="panel-heading">{{ warning_text }}</div>
@@ -19,9 +17,12 @@
   {% endif %}
     <form action = "{{ url_for('predict') }}" method="post">
       <div class="form-group">
-        <label for="customer_id">Customer ID</label>
-        <input type="text" class="form-control" name="customer_id" placeholder="Customer ID" required=''>
-        <em>(use PTY0003)</em>
+        <label for="married">Gender</label>
+        <select class='form-control'name="gender" required = 'required'>
+          <option value="" disabled selected hidden>Select Gender</option>
+          <option value="0">Male</option>
+          <option value="1">Female</option>
+        </select>
       </div>
       <div class="form-group">
         <label for="married">Marital Status</label>

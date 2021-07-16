@@ -35,9 +35,9 @@ data.drop('Loan_ID', axis=1, inplace=True)
 target = data.Loan_Status
 features = data.drop('Loan_Status',axis=1)
 
-features = data[['Married', 'Dependents', 'Education', 'Self_Employed', 'Credit_History', 
+features = data[['Gender', 'Married', 'Dependents', 'Education', 'Self_Employed', 'Credit_History', 
                 'Property_Area','ApplicantIncome', 'CoapplicantIncome', 'LoanAmount',
-                'Loan_Amount_Term', 'income_to_loan', 'Gender']]
+                'Loan_Amount_Term', 'income_to_loan']]
 
 lr = LogisticRegression(C= 0.1, solver = 'liblinear', warm_start = True)
 lr.fit(features, target)

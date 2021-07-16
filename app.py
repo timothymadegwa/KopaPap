@@ -48,15 +48,16 @@ def predict():
     For rendering results on HTML GUI
     '''
     features = [*request.form.values()]
-    customer_id = features[0]
+    # customer_id = features[0]
     amt = features[9]
-    features = features[1:]
+    print(amt)
+    #features = features[1:]
     try:
         features = [*map(float,features)]
     except ValueError:
         return render_template('index.html', error=1, warning_text ="kindly enter a integer values in the relevant fields")
     features.append((features[6]*12)/features[8])
-    
+    '''
     if DEBUG:
         a = authenticate('config.csv')
     else:
@@ -88,7 +89,7 @@ def predict():
     else:
         features.append(0)
         
-
+    '''
     features = np.array([features])
     features[0][6] = (features[0][6]*12)/kes_to_usd
     features[0][7] = (features[0][7]*12)/kes_to_usd
@@ -100,8 +101,8 @@ def predict():
 
     output = round((prediction[0][1])*100,2)
 
-    return render_template('report.html', text='Client {} : Probability of repayment for {} {} {} on a loan of KES {} is: {} %'.format(customer_id, title, f_name, l_name, amt, output))
+    return render_template('report.html', text='The probability of repayment for on a loan of KES {} by the Client is: {} %'.format(amt, output))
     
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)
