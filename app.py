@@ -50,8 +50,7 @@ def predict():
     '''
     features = [*request.form.values()]
     # customer_id = features[0]
-    amt = features[9]
-    print(amt)
+    amt = features[8]
     #features = features[1:]
     try:
         features = [*map(float,features)]
@@ -95,7 +94,7 @@ def predict():
     features[0][6] = (features[0][6]*12)/kes_to_usd
     features[0][7] = (features[0][7]*12)/kes_to_usd
     features[0][8] = features[0][8]/kes_to_usd
-    print(features)
+    #print(features)
 
     prediction = model.predict_proba(features)
         
