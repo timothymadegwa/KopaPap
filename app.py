@@ -1,11 +1,11 @@
 import numpy as np
-import pandas as pd
+#import pandas as pd
 from flask import Flask, request, jsonify, render_template
-import json
-import os
+#import json
+#import os
 import pickle
-from custdetails import authenticate, Querycust_api
-from searchcust import AuthenticateSearch, QuerySearchApi
+#from custdetails import authenticate, Querycust_api
+#from searchcust import AuthenticateSearch, QuerySearchApi
 
 app = Flask(__name__)
 model = pickle.load(open('model.pkl', 'rb'))
@@ -41,6 +41,7 @@ def search():
             return render_template('search.html', warning_text = 'Invalid customer credentials', error=1)
     except ValueError:
         return render_template('search.html')
+
 
 @app.route('/predict',methods=['POST'])
 def predict():
