@@ -13,8 +13,9 @@ kes_to_usd = 100
 DEBUG = False
 
 @app.route('/')
-def predict_home():
-    return render_template('index.html')
+def home():
+    return render_template("index.html")
+
 
 @app.route('/search',methods=['POST','GET'])
 def search():
@@ -43,58 +44,25 @@ def search():
         return render_template('search.html')
 
 
-@app.route('/predict',methods=['POST'])
+@app.route('/predict',methods=['POST', 'GET'])
 def predict():
     '''
     For rendering results on HTML GUI
     '''
     features = [*request.form.values()]
-    # customer_id = features[0]
+    
     amt = features[8]
-    #features = features[1:]
+    
     try:
         features = [*map(float,features)]
     except ValueError:
         return render_template('index.html', error=1, warning_text ="kindly enter a integer values in the relevant fields")
     features.append((features[6]*12)/features[8])
-    '''
-    if DEBUG:
-        a = authenticate('config.csv')
-    else:
-        a = authenticate()
-    response,token = a.get_token()
-    print(response.status_code)
-    method = 'GET'
-    endpoint = 'personal-customers'
-    endpoint2 = '/'+customer_id
-    payload = ''
-    additional_headers = {}
-    params = {}
-    config_file = 'config.csv'
-    if DEBUG:
-        tcm = Querycust_api(config_file, token, method, endpoint,endpoint2, payload, additional_headers, params)
-    else:
-        tcm = Querycust_api(token, method, endpoint,endpoint2, payload, additional_headers, params)
-    response2 = tcm.connect_endpoint()
-    response2 = response2.json()
-    try:
-        title = response2['title']
-        f_name = response2['firstName']
-        l_name = response2['lastName']
-        gender = response2['gender']
-    except KeyError:
-        return render_template('index.html', warning_text = 'Client {} does not exist'.format(customer_id), error=1)
-    if gender == 'MALE':
-        features.append(1)
-    else:
-        features.append(0)
-        
-    '''
+    
     features = np.array([features])
     features[0][6] = (features[0][6]*12)/kes_to_usd
     features[0][7] = (features[0][7]*12)/kes_to_usd
     features[0][8] = features[0][8]/kes_to_usd
-    #print(features)
 
     prediction = model.predict_proba(features)
         
