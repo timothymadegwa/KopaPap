@@ -9,13 +9,6 @@
   <div class="image">
       <object data='../static/logo4.png' width="100%" height="100%"></object><br><br>
     </div>
-  <!--  
-  {% if error %}
-    <div class="panel panel-danger">
-      <div class="panel-heading">{{ warning_text }}</div>
-    </div>
-  {% endif %}
-  -->
     <form action = "{{ url_for('predict') }}" method="post">
       <div class="form-group">
         <label for="married">Marital Status</label>

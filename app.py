@@ -1,11 +1,6 @@
 import numpy as np
-#import pandas as pd
-from flask import Flask, request, jsonify, render_template
-#import json
-#import os
+from flask import Flask, request, render_template
 import pickle
-#from custdetails import authenticate, Querycust_api
-#from searchcust import AuthenticateSearch, QuerySearchApi
 
 app = Flask(__name__)
 model = pickle.load(open('model.pkl', 'rb'))
@@ -15,33 +10,6 @@ DEBUG = False
 @app.route('/')
 def home():
     return render_template("index.html")
-
-
-@app.route('/search',methods=['POST','GET'])
-def search():
-    try:
-        data = []
-        data = [*request.form.values()]
-        first, last, tel, email, id_num, dob = data
-        first = first.upper()
-        last = last.upper()
-        if DEBUG:
-            a = AuthenticateSearch('config.csv')
-        else:
-            a = AuthenticateSearch()
-        token = a.get_token()
-        data ={"firstName": first,"lastName" : last,"phoneNumber": tel,"emailAddress": email,"identificationNumber":id_num,"dateOfBirth": dob}
-        data  = json.dumps(data)
-        tcm = QuerySearchApi(token,data)
-        results = tcm.connect_endpoint()
-        try:
-            results = results['items'][0]
-            cust_id = results['customerId']
-            return render_template('searchreport.html', client_id = cust_id)
-        except (TypeError,KeyError):
-            return render_template('search.html', warning_text = 'Invalid customer credentials', error=1)
-    except ValueError:
-        return render_template('search.html')
 
 
 @app.route('/predict',methods=['POST', 'GET'])
